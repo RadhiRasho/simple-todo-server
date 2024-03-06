@@ -23,3 +23,4 @@ async function Init() {
 if (!dbExists) Init();
 
 export { db, dbExists, Init };
+export * from "./methods";

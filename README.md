@@ -1,15 +1,8 @@
-# server
+# Simple Todo Server
 
-To install dependencies:
+This is a simple todo server that uses a REST API to manage todos.
 
-```bash
-bun install
-```
-
-To run:
-
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.0.30. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+It is written in:
+1. Typescript
+2. Hono as the server framework
+3. SQLite as the database

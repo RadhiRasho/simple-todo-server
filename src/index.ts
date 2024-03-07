@@ -9,15 +9,21 @@ app.notFound((c) => c.html(Layout()));
 
 app.onError((error, c) => {
 	if (error instanceof Error) {
-		return c.json({ message: error.message });
+		return c.json({ message: error.message, cause: error.cause });
 	}
 	return c.json({ error });
 });
 
 app.get("/", (c) => {
-	const data = getTodos();
-	return c.json(data);
+	const { limit, offset } = c.req.query();
+
+	if (limit) {
+		return c.json(getTodos(+limit, +offset));
+	}
+
+	return c.json(getTodos());
 });
+
 
 app.get("/:id{[0-9]+}", (c) => {
 	const id = +c.req.param("id");
@@ -32,7 +38,7 @@ app.post("/create", async (c) => {
 
 	createTodo({ taskName, description });
 
-	return c.json({ message: "Todo created successfully" });
+	return c.text("Todo created successfully");
 });
 
 app.delete("/delete/:id{[0-9]+}", (c) => {
@@ -40,7 +46,7 @@ app.delete("/delete/:id{[0-9]+}", (c) => {
 
 	deleteTodo(id);
 
-	return c.json({ message: "Todo deleted successfully" });
+	return c.text("Todo deleted successfully");
 });
 
 app.put("/update", async (c) => {
@@ -50,5 +56,7 @@ app.put("/update", async (c) => {
 
 	return c.text(`Todo (Id: ${todo.taskId}) updated successfully`);
 });
+
+
 
 export default { port: 3001, fetch: app.fetch };

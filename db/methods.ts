@@ -1,7 +1,6 @@
 import type { Todo, TodoCreate } from "@/types";
 import { db } from ".";
 
-
 export function getTodo(taskId: number): Todo {
 	const statment = db.prepare<Todo, number>(
 		"SELECT * FROM Todos WHERE taskId = ?",
@@ -9,13 +8,20 @@ export function getTodo(taskId: number): Todo {
 
 	const data = statment.get(taskId);
 
-	if (!data) throw new Error("No Data Found");
+	if (!data)
+		throw new Error("Ran into an error", {
+			cause: "No Data Found",
+		});
 
 	return data;
 }
 
-export function getTodos(): Todo[] {
-	return db.prepare<Todo, []>("SELECT * FROM Todos").all();
+export function getTodos(limit?: number, offset?: number): Todo[] {
+	if (limit) {
+		return pagination(limit, offset);
+	}
+
+	return db.prepare<Todo, []>("SELECT * FROM Todos ORDER BY taskId DESC").all();
 }
 
 export function createTodo({ taskName, description }: TodoCreate): void {
@@ -38,4 +44,12 @@ export function updateTodo({ taskId, taskName, description }: Todo): void {
 	);
 
 	statement.run(taskName, description, taskId);
+}
+
+export function pagination(limit: number, offset?: number): Todo[] {
+	const statement = db.prepare<Todo, [number, number]>(
+		"SELECT * FROM Todos ORDER BY taskId DESC LIMIT ? OFFSET ?",
+	);
+
+	return statement.all(limit, offset || 0);
 }

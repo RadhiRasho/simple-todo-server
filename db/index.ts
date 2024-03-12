@@ -2,10 +2,10 @@ import { Database } from "bun:sqlite";
 
 const db = new Database("db/test.db");
 
-const dbExists = db.query("SELECT name FROM sqlite_master WHERE type='table' AND name='Todos'").all().length > 0;
+const dbExists = db.query("SELECT name FROM sqlite_master").all().length > 1;
 
 async function Init() {
-	const file = Bun.file("db/Todos.sql");
+	const file = Bun.file("db/testdb.sql");
 
 	const fileExists = await file.exists();
 
@@ -22,5 +22,4 @@ async function Init() {
 
 if (!dbExists) Init();
 
-export { db, Init };
-export * from "./methods";
+export { Init, db };

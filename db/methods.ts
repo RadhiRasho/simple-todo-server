@@ -1,6 +1,7 @@
-import type { Todo, TodoCreate } from "@/types";
+import type { Todo, TodoCreate, User, UserCreate } from "@/types";
 import { db } from ".";
 
+//#region Todo
 export function getTodo(taskId: number): Todo {
 	const statment = db.prepare<Todo, number>(
 		"SELECT * FROM Todos WHERE taskId = ?",
@@ -52,4 +53,57 @@ export function pagination(limit: number, offset?: number): Todo[] {
 	);
 
 	return statement.all(limit, offset || 0);
+}
+
+//#endregion
+
+//#region User
+export function getUser(userId: number) {
+	const statement = db.prepare<User, number>(
+		"SELECT * FROM Users WHERE userId = ?",
+	);
+
+	return statement.get(userId);
+}
+
+export function getUsers(): User[] {
+	const statement = db.prepare<User, []>("SELECT * FROM Users");
+
+	return statement.all();
+}
+
+export async function createUser({
+	email,
+	password,
+	profile_picture,
+	username,
+	firstName,
+	lastName,
+	birthdate,
+	city,
+	country,
+	gender,
+	state,
+}: UserCreate) {
+	const query = db.prepare(
+		`INSERT INTO Todos (email, profile_picture, username, password, firstName, lastName, gender, birthdate, country, city, state)
+		 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+	);
+
+	const HashedPassword = await Bun.password.hash(password);
+	const profilePic = `https://robohash.org/${username}/?set=set3`;
+
+	query.run(
+		email,
+		profilePic,
+		username,
+		HashedPassword,
+		firstName,
+		lastName,
+		gender,
+		birthdate.toUTCString(),
+		country,
+		city,
+		state,
+	);
 }

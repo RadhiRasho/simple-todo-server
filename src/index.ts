@@ -1,4 +1,4 @@
-import { Layout } from "@/components";
+import { NotFound } from "@/components";
 import { Hono } from "hono";
 import { logger } from "hono/logger";
 import { prettyJSON } from "hono/pretty-json";
@@ -12,7 +12,7 @@ app.use("*", timing({ enabled: (c) => c.req.method === "GET" }));
 app.use("*", logger());
 app.use("*", prettyJSON());
 
-app.notFound((c) => c.html(Layout()));
+app.notFound((c) => c.html(NotFound()));
 
 app.onError((error, c) => {
 	if (error instanceof Error) {

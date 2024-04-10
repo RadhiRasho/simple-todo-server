@@ -1,11 +1,12 @@
+
 import {
 	createTodo,
 	deleteTodo,
 	getTodo,
 	getTodos,
 	updateTodo,
-} from "@/db/methods";
-import type { Todo, TodoCreate } from "@/types";
+} from "@/db/Todos";
+import type { Todo, TodoCreate } from "@/types/Todo";
 import { Hono } from "hono";
 
 const app = new Hono();

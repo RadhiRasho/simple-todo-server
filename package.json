@@ -9,6 +9,7 @@
     "typescript": "latest"
   },
   "dependencies": {
+    "@biomejs/biome": "^1.6.4",
     "hono": "^4.0.10"
   },
   "scripts": {

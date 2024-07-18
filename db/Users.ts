@@ -2,9 +2,7 @@ import type { User, UserCreate } from "@/types/User";
 import { db } from ".";
 
 export function getUser(userId: number) {
-	const statement = db.prepare<User, number>(
-		"SELECT * FROM Users WHERE userId = ?",
-	);
+	const statement = db.prepare<User, number>("SELECT * FROM Users WHERE userId = ?");
 
 	return statement.get(userId);
 }
@@ -15,13 +13,7 @@ export function getUsers(): User[] {
 	return statement.all();
 }
 
-export async function createUser({
-	email,
-	password,
-	username,
-	firstName,
-	lastName,
-}: UserCreate) {
+export async function createUser({ email, password, username, firstName, lastName }: UserCreate) {
 	try {
 		const query = db.prepare<UserCreate, string[]>(
 			`INSERT INTO Users (email, profile_picture, username, password, firstName, lastName)
@@ -39,9 +31,7 @@ export async function createUser({
 
 export async function comparePass() {
 	try {
-		const query = db.prepare<UserCreate, []>(
-			"SELECT * FROM Users WHERE userId=11",
-		);
+		const query = db.prepare<UserCreate, []>("SELECT * FROM Users WHERE userId=11");
 
 		const data = query.get();
 

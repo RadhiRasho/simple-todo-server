@@ -1,8 +1,8 @@
+import { DisplayUser } from "@/components";
 import { comparePass, createUser, getUsers } from "@/db/Users";
+import type { UserCreate } from "@/types/User";
 import { Hono } from "hono";
 import { IsValid } from "./validation";
-import type { UserCreate } from "@/types/User";
-import { DisplayUser } from "@/components";
 
 const app = new Hono();
 
@@ -21,7 +21,6 @@ app.post("/create", async (c) => {
 
 	throw new Error("Invalid User");
 });
-
 
 app.get("/compare", async (c) => {
 	const passed = await comparePass();

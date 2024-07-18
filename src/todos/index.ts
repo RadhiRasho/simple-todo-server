@@ -1,11 +1,4 @@
-
-import {
-	createTodo,
-	deleteTodo,
-	getTodo,
-	getTodos,
-	updateTodo,
-} from "@/db/Todos";
+import { createTodo, deleteTodo, getTodo, getTodos, updateTodo } from "@/db/Todos";
 import type { Todo, TodoCreate } from "@/types/Todo";
 import { Hono } from "hono";
 

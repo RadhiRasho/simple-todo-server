@@ -1,10 +1,10 @@
 import { Hono } from "hono";
+import { serveStatic } from "hono/bun";
 import { logger } from "hono/logger";
 import { prettyJSON } from "hono/pretty-json";
 import { timing } from "hono/timing";
 import TodoRouter from "./todos";
 import UserRouter from "./users";
-import { serveStatic } from "hono/bun";
 
 const app = new Hono();
 
@@ -39,6 +39,5 @@ app.notFound(async (c) => {
 app.route("/users", UserRouter);
 
 app.route("/todos", TodoRouter);
-
 
 export default { port: 3001, fetch: app.fetch };

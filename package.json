@@ -1,21 +1,19 @@
 {
-  "name": "server",
-  "module": "src/index.ts",
-  "type": "module",
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "latest"
-  },
-  "dependencies": {
-    "@biomejs/biome": "^1.8.3",
-    "hono": "^4.5.0"
-  },
-  "scripts": {
-    "dev": "bun run --watch src/index.ts"
-  },
-  "trustedDependencies": [
-    "@biomejs/biome"
-  ]
+	"name": "server",
+	"module": "src/index.ts",
+	"type": "module",
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "latest"
+	},
+	"dependencies": {
+		"@biomejs/biome": "^1.8.3",
+		"hono": "^4.5.0"
+	},
+	"scripts": {
+		"dev": "bun run --watch src/index.ts"
+	},
+	"trustedDependencies": ["@biomejs/biome"]
 }

@@ -1,4 +1,4 @@
-import { createUser, getUsers } from "@/db/Users";
+import { comparePass, createUser, getUsers } from "@/db/Users";
 import { Hono } from "hono";
 import { IsValid } from "./validation";
 import type { UserCreate } from "@/types/User";
@@ -20,6 +20,13 @@ app.post("/create", async (c) => {
 	}
 
 	throw new Error("Invalid User");
+});
+
+
+app.get("/compare", async (c) => {
+	const passed = await comparePass();
+
+	return c.json({ passed });
 });
 
 app.get("/:id", async (c) => {

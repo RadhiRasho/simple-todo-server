@@ -28,11 +28,31 @@ export async function createUser({
 			VALUES (?, ?, ?, ?, ?, ?)`,
 		);
 
-		const HashedPassword = await Bun.password.hash(password);
+		const HashedPassword = await Bun.password.hash(password, "bcrypt");
 		const profilePic = `https://robohash.org/${username}/?set=set3`;
 
 		query.run(email, profilePic, username, HashedPassword, firstName, lastName);
 	} catch (error) {
 		console.error(error);
+	}
+}
+
+export async function comparePass() {
+	try {
+		const query = db.prepare<UserCreate, []>(
+			"SELECT * FROM Users WHERE userId=11",
+		);
+
+		const data = query.get();
+
+		const pass = "Discharge-P";
+
+		const passed = await Bun.password.verify(pass, data?.password ?? "");
+
+		console.log(passed);
+
+		return passed;
+	} catch (err) {
+		console.error(err);
 	}
 }

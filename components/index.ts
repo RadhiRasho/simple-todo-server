@@ -1,5 +1,5 @@
-import type { User } from "@/types/User";
 import { html } from "hono/html";
+import type { User } from "@/types/User";
 
 export function DisplayUser(user: User) {
 	return html`

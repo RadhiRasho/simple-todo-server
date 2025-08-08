@@ -1,7 +1,7 @@
+import { Hono } from "hono";
 import { DisplayUser } from "@/components";
 import { comparePass, createUser, getUsers } from "@/db/Users";
 import type { UserCreate } from "@/types/User";
-import { Hono } from "hono";
 import { IsValid } from "./validation";
 
 const app = new Hono();

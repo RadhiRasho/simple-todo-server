@@ -1,6 +1,6 @@
+import { Hono } from "hono";
 import { createTodo, deleteTodo, getTodo, getTodos, updateTodo } from "@/db/Todos";
 import type { Todo, TodoCreate } from "@/types/Todo";
-import { Hono } from "hono";
 
 const app = new Hono();
 

@@ -15,5 +15,7 @@
 	"scripts": {
 		"dev": "bun run --watch src/index.ts"
 	},
-	"trustedDependencies": ["@biomejs/biome"]
+	"trustedDependencies": [
+		"@biomejs/biome"
+	]
 }
